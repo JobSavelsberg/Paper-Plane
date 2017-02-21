@@ -10,10 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.jobsavelsberg.paperplane.*;
-import com.jobsavelsberg.paperplane.Objects.BirdHandler;
-import com.jobsavelsberg.paperplane.Objects.PickupHandler;
-import com.jobsavelsberg.paperplane.Objects.Plane;
-import com.jobsavelsberg.paperplane.Objects.Terrain;
+import com.jobsavelsberg.paperplane.Objects.*;
 
 /**
  * Created by s153640 on 27-12-2016.
@@ -27,6 +24,8 @@ public class PlayScreen implements Screen{
     private Plane plane;
     private PickupHandler pickups;
     private BirdHandler birds;
+    private BoostHandler boosts;
+
     private Score score = new Score();
 
     //Graphics
@@ -52,11 +51,12 @@ public class PlayScreen implements Screen{
         game.viewport = new FitViewport(game.viewSize.x,game.viewSize.y,camera);
 
         world = new World(new Vector2(0, Constants.GRAVITY), true);
-        background = new Background("firewatchnight.png");
+        background = new Background("firewatch.png");
         terrain = new Terrain();
         plane = new Plane(this, game.viewSize.x/2, game.viewSize.y*0.8f,800f,0f);
         pickups = new PickupHandler(score);
         birds = new BirdHandler();
+        boosts = new BoostHandler();
 
         camera.follow(plane, game.viewSize.x/3);
     }
@@ -89,9 +89,10 @@ public class PlayScreen implements Screen{
         batch.begin();
 
         pickups.render(batch);
+        boosts.render(batch);
+
         plane.render(batch);
         birds.render(batch);
-
 
 
         batch.end();
@@ -126,6 +127,8 @@ public class PlayScreen implements Screen{
         terrain.update(delta,camera.position.x);
         plane.update(delta);
         pickups.update(delta,camera.position.x,terrain,plane);
+        boosts.update(delta,camera.position.x,plane,terrain);
+
         birds.update(delta,camera.position.x,plane,terrain);
         hud.update(delta,score);
     }

@@ -30,6 +30,8 @@ public class Plane {
     private float stallSpeed = 300f;
 
     private boolean active;
+    private boolean boosting;
+
 
     LinkedBlockingQueue<Vector2> prevPositions = new LinkedBlockingQueue<Vector2>(120);
 
@@ -115,7 +117,10 @@ public class Plane {
     }
 
     public void boost(){
-        velocity.scl(1.8f);
+        if(!boosting){
+            velocity.scl(1.8f);
+            boosting=true;
+        }
     }
 
     public Vector2 getPosition() {

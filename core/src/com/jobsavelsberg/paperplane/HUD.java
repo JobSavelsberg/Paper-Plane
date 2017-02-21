@@ -27,7 +27,7 @@ public class HUD {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/BebasNeue.otf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 70;
+        parameter.size = 180;
         BitmapFont fontBig = generator.generateFont(parameter); // font size 12 pixels
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
 
@@ -41,7 +41,7 @@ public class HUD {
         table.top();
         table.setFillParent(true);
 
-        scoreLabel = new Label("score: "+scoreDisp,new Label.LabelStyle(fontBig, Color.WHITE));
+        scoreLabel = new Label(""+scoreDisp,new Label.LabelStyle(fontBig, Color.WHITE));
 
         table.add(scoreLabel).expandX().padTop(10);
 
@@ -56,6 +56,6 @@ public class HUD {
 
     public void update(float delta, Score score) {
         this.scoreDisp = score.getCoins();
-        scoreLabel.setText("score: "+scoreDisp);
+        scoreLabel.setText(""+scoreDisp);
     }
 }

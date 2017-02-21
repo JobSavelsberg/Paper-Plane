@@ -20,10 +20,11 @@ public class Terrain {
 
 
     private float distance = 400;
-    private float heightDif = 400;
+    private float heightDif = 300;
     private float backBuffer = 800;
     private float frontBuffer = 800;
     private float depth = 800;
+    private float slope = -55;
     private PolygonRegion lastPoly;
 
     public Terrain(){
@@ -73,7 +74,7 @@ public class Terrain {
         float[] last = lastPoly.getVertices();
         float lastx = last[2];
         float lasty = last[3];
-        float newy  =(float) (lasty-60+Math.random()*heightDif-heightDif/2);
+        float newy  =(float) (lasty+slope+Math.random()*heightDif-heightDif/2);
         float bottomy = Math.min(newy,lasty)-depth*1.5f;
         float[] vertices = {
                 lastx,                  lasty ,                                         //topleft

@@ -1,5 +1,6 @@
 package com.jobsavelsberg.paperplane.Objects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,7 +21,18 @@ public class BirdHandler {
     private float backBuffer = 400;
 
     public BirdHandler(){
-        birdList.add(new Bird(2000,500,sprite));
+        sprite.setScale(0.11f,0.11f);
+        birdList.add(new Bird(4000,500,new Sprite(sprite)));
+        birdList.add(new Bird(5000,500,new Sprite(sprite)));
+        birdList.add(new Bird(6000,500,new Sprite(sprite)));
+        birdList.add(new Bird(6400,1000,new Sprite(sprite)));
+        birdList.add(new Bird(8400,1000,new Sprite(sprite)));
+        birdList.add(new Bird(10800,1000,new Sprite(sprite)));
+        birdList.add(new Bird(12800,1000,new Sprite(sprite)));
+        birdList.add(new Bird(14800,1000,new Sprite(sprite)));
+
+
+
     }
 
     public void render(SpriteBatch batch){
@@ -29,11 +41,13 @@ public class BirdHandler {
         }
     }
     public void update(float delta,float x,Plane plane,Terrain terrain){
+        int i = 0;
         for(Bird b: birdList){
-            b.update(delta,plane,terrain);
+            b.update(delta,plane,terrain,i);
             if(b.position.x<x- MainGame.viewSize.x/2-backBuffer){
                 removeBird(b);
             }
+            i++;
         }
     }
 
