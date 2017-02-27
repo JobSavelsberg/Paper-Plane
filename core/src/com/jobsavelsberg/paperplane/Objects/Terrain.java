@@ -21,7 +21,7 @@ public class Terrain {
 
     private float distance = 400;
     private float heightDif = 300;
-    private float backBuffer = 800;
+    private float backBuffer = 1000;
     private float frontBuffer = 800;
     private float depth = 800;
     private float slope = -55;

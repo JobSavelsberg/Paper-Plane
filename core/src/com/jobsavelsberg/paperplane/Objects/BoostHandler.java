@@ -18,7 +18,10 @@ public class BoostHandler {
     private Boost last = null;
 
     public BoostHandler(){
-        addToList(2000,500);
+        addToList(3000,700);
+        addToList(7600,500);
+        addToList(15800,400);
+
     }
 
     public void render(SpriteBatch batch){
@@ -27,29 +30,12 @@ public class BoostHandler {
         }
     }
     public void update(float delta,float x,Plane plane,Terrain terrain){
-        /*while(last.position.x<x+MainGame.viewSize.x/2){
-            float random = x+ MainGame.viewSize.x/2+1000+(float)Math.random()*600;
-            addToList(random,terrain.getTerrainHeight(random)+600+(float)Math.random()*250);
-            System.out.println(random);
-        }
-        try{
-            while(boostList.peek().position.x+ MainGame.viewSize.x/2+backBuffer<x){
-                boostList.remove();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
         for(Boost b: boostList){
             b.update(delta,plane,terrain);
             if(b.position.x<x- MainGame.viewSize.x/2-backBuffer){
                 removeBoost(b);
             }
         }
-        if(boostList.isEmpty()){
-            addToList(x+1000,terrain.getTerrainHeight(x+1000)+150);
-
-        }*/
     }
 
     public void removeBoost(Boost b){

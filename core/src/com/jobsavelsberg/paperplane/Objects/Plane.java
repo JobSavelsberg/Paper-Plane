@@ -117,8 +117,12 @@ public class Plane {
     }
 
     public void boost(){
+        if(velocity.len()<1200f){
+            boosting=false;
+        }
         if(!boosting){
-            velocity.scl(1.8f);
+            velocity.scl(1.5f);
+            //velocity.nor().scl(1200f);
             boosting=true;
         }
     }
