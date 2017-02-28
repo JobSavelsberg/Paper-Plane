@@ -25,12 +25,7 @@ public class HUD {
 
     public HUD(SpriteBatch batch){
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/BebasNeue.otf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 180;
-        BitmapFont fontBig = generator.generateFont(parameter); // font size 12 pixels
-        generator.dispose(); // don't forget to dispose to avoid memory leaks!
-
+        BitmapFont fontBig = Font.big.get();
 
         scoreDisp = 0;
 

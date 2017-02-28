@@ -25,6 +25,7 @@ public class Plane {
     public Sprite sprite;
 
     private boolean lifting;
+    private boolean diving;
     private float drag = 0.999f;
     private float maxTurnSpeed = 20f;
     private float stallSpeed = 300f;
@@ -73,6 +74,8 @@ public class Plane {
         if(active) {
             if (lifting || velocity.x<-200f) {
                 velocity.rotate(2.5f);
+            }else if(diving){
+                velocity.rotate(-1.5f);
             }
 
             velocity.add(0, Constants.GRAVITY * deltaTime + liftPhysics());
@@ -112,9 +115,9 @@ public class Plane {
         texture.dispose();
     }
 
-    public void lift(boolean lift) {
-        lifting=lift;
+    public void lift(boolean lift) {lifting=lift;
     }
+    public void dive(boolean dive) { diving=dive;}
 
     public void boost(){
         if(velocity.len()<1200f){
@@ -130,4 +133,6 @@ public class Plane {
     public Vector2 getPosition() {
         return position;
     }
+
+
 }

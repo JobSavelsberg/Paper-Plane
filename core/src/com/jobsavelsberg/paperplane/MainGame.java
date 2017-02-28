@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.jobsavelsberg.paperplane.Screens.MainMenuScreen;
 import com.jobsavelsberg.paperplane.Screens.PlayScreen;
+import sun.applet.Main;
 
 /**
  * Created by s153640 on 27-12-2016.
@@ -16,6 +18,7 @@ public class MainGame extends Game implements InputProcessor{
     public static Vector2 windowSize;
 
     public PlayScreen playScreen;
+    public MainMenuScreen mainMenuScreen;
 
     @Override
     public void create() {
@@ -25,7 +28,9 @@ public class MainGame extends Game implements InputProcessor{
         viewSize = new Vector2(1920,1080);
 
         playScreen = new PlayScreen(this);
-        setScreen(playScreen);
+        mainMenuScreen = new MainMenuScreen(this);
+
+        setScreen(mainMenuScreen);
     }
 
     public void render() {
@@ -58,7 +63,7 @@ public class MainGame extends Game implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if(getScreen().equals(playScreen)){
-            playScreen.touchDown();
+            playScreen.touchDown(screenX, screenY, pointer, button);
         }
         return false;
     }

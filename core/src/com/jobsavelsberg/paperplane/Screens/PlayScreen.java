@@ -16,9 +16,11 @@ import com.jobsavelsberg.paperplane.Objects.*;
  * Created by s153640 on 27-12-2016.
  */
 public class PlayScreen implements Screen{
+    public boolean isFrozen;
+
     //Objects
     private MyCamera camera;
-    private Background background;
+    public Background background;
     public Terrain terrain;
     private World world;
     private Plane plane;
@@ -37,21 +39,27 @@ public class PlayScreen implements Screen{
 
     public PlayScreen(MainGame game){
         this.game = game;
-
         init();
-
     }
+
+    //TODO: clean up init() to work with restart,
+    // so only objects contributing to state in init (also holds for other classes)
     public void init(){
+        Gdx.input.setInputProcessor(game);
+
         batch = new SpriteBatch();
         polygonBatch = new PolygonSpriteBatch();
         shapeRenderer = new ShapeRenderer();
         hud = new HUD(batch);
+        score.reset();
 
         camera = new MyCamera(game.viewSize);
         game.viewport = new FitViewport(game.viewSize.x,game.viewSize.y,camera);
 
         world = new World(new Vector2(0, Constants.GRAVITY), true);
-        background = new Background("firewatch.png");
+        if(background==null){
+            background = background.fireWatch;
+        }
         terrain = new Terrain();
         plane = new Plane(this, game.viewSize.x/2, game.viewSize.y*0.8f,800f,0f);
         pickups = new PickupHandler(score);
@@ -63,12 +71,14 @@ public class PlayScreen implements Screen{
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(game);
     }
 
     @Override
     public void render(float delta) {
-        update(delta);
+        if(!isFrozen){
+            update(delta);
+        }
 
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -77,7 +87,7 @@ public class PlayScreen implements Screen{
         batch.begin();
 
         background.draw(batch);
-
+        //batch.draw(background.getTexture(),0,0,MainGame.viewSize.x,MainGame.viewSize.y);
         batch.end();
 
         polygonBatch.setProjectionMatrix(camera.combined);
@@ -149,6 +159,7 @@ public class PlayScreen implements Screen{
 
     @Override
     public void resume() {
+        Gdx.input.setInputProcessor(game);
 
     }
 
@@ -159,16 +170,24 @@ public class PlayScreen implements Screen{
 
     @Override
     public void dispose() {
-        background.dispose();
+        //background.dispose();
         plane.dispose();
         batch.dispose();
     }
-    public boolean touchDown() {
-        plane.lift(true);
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if(screenX < MainGame.windowSize.x/2){
+            plane.dive(true);
+            plane.lift(false);
+        }else{
+            plane.lift(true);
+            plane.dive(false);
+        }
+
         return false;
     }
     public boolean touchUp() {
         plane.lift(false);
+        plane.dive(false);
         return false;
     }
 }

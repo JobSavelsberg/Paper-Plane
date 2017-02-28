@@ -10,14 +10,17 @@ import com.jobsavelsberg.paperplane.Screens.PlayScreen;
 /**
  * Created by s153640 on 26-12-2016.
  */
-public class Background {
+public enum Background {
+    fireWatch("firewatch.png");
+
     Texture img;
     float imgWidth;
-    private Vector2 position = new Vector2(0,0);
+    private Vector2 position;
     private float speed = 0.1f;
 
 
-    public Background(String path){
+    Background(String path){
+        position = new Vector2(0,0);
         img = new Texture(path);
         imgWidth = img.getWidth();
     }
@@ -36,5 +39,9 @@ public class Background {
         position.x=imgWidth*(float)Math.floor((cameraX-imgWidth/2)/imgWidth);
         position.x=cameraX- MainGame.viewSize.x/2;
         position.y=cameraY- MainGame.viewSize.y/2;
+    }
+
+    public Texture getTexture(){
+        return img;
     }
 }

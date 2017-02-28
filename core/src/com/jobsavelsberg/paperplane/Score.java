@@ -17,4 +17,7 @@ public class Score {
         this.coins = coins;
     }
 
+    public void reset() {
+        setCoins(0);
+    }
 }
