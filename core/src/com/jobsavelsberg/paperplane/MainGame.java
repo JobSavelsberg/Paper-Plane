@@ -20,12 +20,19 @@ public class MainGame extends Game implements InputProcessor{
     public PlayScreen playScreen;
     public MainMenuScreen mainMenuScreen;
 
+    public static Objectives objectives;
+    public static Score score;
+
+
     @Override
     public void create() {
         Gdx.input.setInputProcessor(this);
 
         windowSize = new Vector2(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         viewSize = new Vector2(1920,1080);
+
+        score = new Score();
+        objectives = new Objectives();
 
         playScreen = new PlayScreen(this);
         mainMenuScreen = new MainMenuScreen(this);

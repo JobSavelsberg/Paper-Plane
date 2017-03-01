@@ -18,7 +18,6 @@ public class PickupHandler {
     private Vector2 position;
     private float bounds = 50;
     private float backBuffer = 400;
-    private Score score;
 
     private Sprite sprite;
     private Sprite coinSprite;
@@ -32,7 +31,7 @@ public class PickupHandler {
 
 
 
-    public PickupHandler(Score score){
+    public PickupHandler(){
         coinSprite = new Sprite(new Texture("coin.png"));
         coinSprite.setScale(0.3f,0.3f);
         sprite = coinSprite; //default
@@ -42,7 +41,6 @@ public class PickupHandler {
 
         magnet = false;
 
-        this.score = score;
     }
 
     public void render(SpriteBatch batch){
@@ -103,7 +101,7 @@ public class PickupHandler {
     }
     public void collect(Pickup p){
         p.collect();
-        score.collectCoin();
+        MainGame.score.collectCoin();
         pickupList.remove(p);
     }
 

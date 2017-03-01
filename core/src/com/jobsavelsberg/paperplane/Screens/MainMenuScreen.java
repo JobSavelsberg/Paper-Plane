@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.jobsavelsberg.paperplane.Background;
 import com.jobsavelsberg.paperplane.Font;
 import com.jobsavelsberg.paperplane.MainGame;
+import com.jobsavelsberg.paperplane.Objectives;
 import sun.swing.BakedArrayList;
 
 /**
@@ -33,9 +34,6 @@ public class MainMenuScreen implements Screen {
     private BitmapFont font;
     private Skin skin;
     private Background background;
-
-
-
 
 
     public MainMenuScreen(MainGame game){
@@ -73,7 +71,7 @@ public class MainMenuScreen implements Screen {
 
         skin.add("defaultButton", textButtonStyle);
 
-        final TextButton textButton= createButton("Play", textButtonStyle, -1,400);
+        final TextButton textButton= createButton("Play", textButtonStyle, -1,500);
         textButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 game.setScreen( game.playScreen);
@@ -81,6 +79,7 @@ public class MainMenuScreen implements Screen {
         });
 
         background = Background.fireWatch;
+
     }
 
     @Override
@@ -99,6 +98,8 @@ public class MainMenuScreen implements Screen {
         stage.getBatch().begin();
         //background.draw(stage.getBatch());
         stage.getBatch().draw(background.getTexture(), 0, 0, MainGame.viewSize.x, MainGame.viewSize.y);
+        MainGame.objectives.update();
+        MainGame.objectives.render(stage.getBatch(), MainGame.viewSize.x/2, MainGame.viewSize.y/2);
         stage.getBatch().end();
 
         stage.act();

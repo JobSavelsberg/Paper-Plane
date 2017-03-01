@@ -44,13 +44,17 @@ public class HUD {
     }
 
     public void render (SpriteBatch batch) {
-        batch.setProjectionMatrix(stage.getCamera().combined);
+        stage.getBatch().setProjectionMatrix(stage.getCamera().combined);
+        stage.getBatch().begin();
+        MainGame.objectives.render(stage.getBatch(),200,1000);
+        stage.getBatch().end();
         stage.draw();
     }
 
 
-    public void update(float delta, Score score) {
-        this.scoreDisp = score.getCoins();
+    public void update(float delta) {
+        this.scoreDisp = MainGame.score.getCoins();
         scoreLabel.setText(""+scoreDisp);
+        MainGame.objectives.update();
     }
 }

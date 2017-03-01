@@ -28,7 +28,6 @@ public class PlayScreen implements Screen{
     private BirdHandler birds;
     private BoostHandler boosts;
 
-    private Score score = new Score();
 
     //Graphics
     private SpriteBatch batch;
@@ -51,7 +50,7 @@ public class PlayScreen implements Screen{
         polygonBatch = new PolygonSpriteBatch();
         shapeRenderer = new ShapeRenderer();
         hud = new HUD(batch);
-        score.reset();
+        MainGame.score.reset();
 
         camera = new MyCamera(game.viewSize);
         game.viewport = new FitViewport(game.viewSize.x,game.viewSize.y,camera);
@@ -62,7 +61,7 @@ public class PlayScreen implements Screen{
         }
         terrain = new Terrain();
         plane = new Plane(this, game.viewSize.x/2, game.viewSize.y*0.8f,800f,0f);
-        pickups = new PickupHandler(score);
+        pickups = new PickupHandler();
         birds = new BirdHandler();
         boosts = new BoostHandler();
 
@@ -140,11 +139,12 @@ public class PlayScreen implements Screen{
         boosts.update(delta,camera.position.x,plane,terrain);
 
         birds.update(delta,camera.position.x,plane,terrain);
-        hud.update(delta,score);
+        hud.update(delta);
     }
 
     public void restart(){
         dispose();
+        MainGame.objectives.regenerate();
         init();
     }
     @Override
